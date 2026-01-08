@@ -1,0 +1,77 @@
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAD7CD"
+    tools:context=".RegisteredPlantsActivity">
+
+    <!-- Contenido principal -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DAD7CD"
+        android:orientation="vertical">
+
+        <!-- Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#344E41"
+            android:textDirection="firstStrongRtl"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Sobre Nosotros"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
+            app:titleTextColor="#FFFFFF" />
+
+        <!-- Contenido específico -->
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#FFFFFF">
+
+            <TextView
+                android:id="@+id/tv_about_us_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sobre Nosotros"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="16dp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_about_us_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Este proyecto ha sido una de las experiencias más intensas y enriquecedoras que he tenido. Durante una semana completa, dediqué horas interminables a escribir, corregir y ajustar cada línea de código, con días que comenzaban temprano y noches que terminaban hasta las 4 de la mañana. Hubo momentos de desesperación, especialmente al final, en los que parecía que los problemas no tenían solución, y estuve cerca de rendirme y dejarlo a medias. Sin embargo, mi determinación y pasión por aprender y crear algo funcional me impulsaron a seguir adelante. Uno de los aspectos más destacados de este proceso fue contar con la ayuda de ChatGPT. Sin esta herramienta, muchos de los errores complejos que enfrenté habrían quedado sin resolver. Desde pequeñas correcciones hasta lógica avanzada, ChatGPT fue como un compañero de equipo incansable, disponible siempre que lo necesitara. La tecnología es realmente maravillosa cuando puede ayudarnos a superar nuestros límites. Este proyecto no solo es el resultado de largas horas de trabajo, sino también de mi deseo de aprender, mejorar y crear algo que pueda ser útil para los demás. Más allá de la funcionalidad que tiene ahora, estoy emocionado por la posibilidad de escalarlo, hacerlo más robusto y agregar características que lo conviertan en una herramienta indispensable. Saber que esta aplicación puede facilitar la vida de otros es mi mayor motivación. Espero que inspire a quienes la usen tanto como me inspiró a mí durante su desarrollo. Gracias por ser parte de este viaje y por confiar en este esfuerzo. Y, por supuesto, un agradecimiento especial a ChatGPT, por ser una guía en los momentos más oscuros del camino."
+                    android:textSize="16sp"
+                    android:textColor="#333333"
+                    android:lineSpacingExtra="4dp"
+                    android:padding="8dp" />
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Menú lateral -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/menu_navigation" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

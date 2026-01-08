@@ -1,0 +1,7 @@
+# Archivo de ejemplo para configuración local
+# Copia este archivo a 'local.properties' y añade tu API Key real
+# IMPORTANTE: local.properties está en .gitignore y NO se subirá al repositorio
+
+# API Key de Plant.id
+# Obtén tu API Key en: https://web.plant.id/plant-identification-api
+PLANT_API_KEY=tu_api_key_aqui

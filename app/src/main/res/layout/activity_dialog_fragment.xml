@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp">
+
+    <!-- Imagen de la planta -->
+    <ImageView
+        android:id="@+id/plantImageDetail"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/ic_plants2"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Nombre de la planta -->
+    <TextView
+        android:id="@+id/plantNameDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Plant Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Periodo de riego -->
+    <TextView
+        android:id="@+id/plantPeriod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Periodo de regado"
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_marginBottom="12dp" />
+
+</LinearLayout>

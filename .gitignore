@@ -1,0 +1,41 @@
+# Archivos de compilación
+*.iml
+.gradle
+/build
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.ap_
+*.aab
+
+# Archivos de configuración local (contienen datos sensibles)
+/local.properties
+local.properties
+
+# Archivos de Android Studio / IntelliJ IDEA
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/
+*.iml
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de Keystore (nunca subir)
+*.jks
+*.keystore
+
+# Archivos de log
+*.log
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+*~
