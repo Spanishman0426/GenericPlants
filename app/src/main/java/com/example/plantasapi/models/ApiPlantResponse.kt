@@ -1,18 +1,28 @@
 package com.example.plantasapi.models
 
+import com.google.gson.annotations.SerializedName
+
 data class ApiPlantResponse(
-    val is_plant: Boolean,
-    val classification: Classification,
-    val name: String,
-    val imageUrl: String,
-    val waterPeriod: Int
+    @SerializedName("is_plant") val is_plant: Boolean? = null,
+    @SerializedName("result") val result: ApiResult? = null,
+    // The following fields were in the original file but don't seem to match the JSON structure 
+    // seen in MainActivity (which looks for "result"). 
+    // I'll keep them as nullable to avoid breaking other things if they exist.
+    val name: String? = null,
+    val imageUrl: String? = null,
+    val waterPeriod: Int? = null,
+    val classification: Classification? = null
+)
+
+data class ApiResult(
+    @SerializedName("classification") val classification: Classification? = null
 )
 
 data class Classification(
-    val suggestions: List<Suggestion>
+    @SerializedName("suggestions") val suggestions: List<Suggestion>? = null
 )
 
 data class Suggestion(
-    val name: String,
-    val probability: Float // Asegúrate de que esta propiedad exista
+    @SerializedName("name") val name: String? = null,
+    @SerializedName("probability") val probability: Float? = null
 )

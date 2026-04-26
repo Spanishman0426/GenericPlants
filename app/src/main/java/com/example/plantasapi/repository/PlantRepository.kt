@@ -1,4 +1,3 @@
-// PlantRepository.kt
 package com.example.plantasapi.repository
 
 import android.net.Uri
@@ -8,9 +7,7 @@ import com.example.plantasapi.models.ApiPlantResponse
 import com.example.plantasapi.models.Plant
 import com.example.plantasapi.network.ApiClient
 import com.example.plantasapi.network.ApiService
-import com.google.gson.Gson
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,47 +16,48 @@ class PlantRepository {
 
     private val apiService: ApiService = ApiClient.retrofit.create(ApiService::class.java)
 
-    fun identifyPlantBase64(apiKey: String, requestBody: RequestBody): Call<ResponseBody> {
+    fun identifyPlantBase64(apiKey: String, requestBody: RequestBody): Call<ApiPlantResponse> {
         return apiService.identifyPlantBase64(apiKey, requestBody)
     }
 
     fun fetchPlantData(apiKey: String, requestBody: RequestBody, plantAdapter: PlantAdapter) {
         val call = identifyPlantBase64(apiKey, requestBody)
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+        call.enqueue(object : Callback<ApiPlantResponse> {
+            override fun onResponse(call: Call<ApiPlantResponse>, response: Response<ApiPlantResponse>) {
                 if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    responseBody?.let {
-                        val plantResponse = Gson().fromJson(it.string(), ApiPlantResponse::class.java)
+                    val plantResponse = response.body()
+                    
+                    // Verificamos si la respuesta indica que es una planta válida (usando safe call)
+                    if (plantResponse?.is_plant == true) {
+                        val suggestion = plantResponse.result?.classification?.suggestions?.firstOrNull()
+                        
+                        if (suggestion != null) {
+                            val name = suggestion.name ?: "Desconocido"
+                            val probability = suggestion.probability ?: 0.0f
 
-                        // Verificamos si la respuesta indica que es una planta válida
-                        if (plantResponse.is_plant) {
-                            val suggestions = plantResponse.classification.suggestions
-                            if (suggestions.isNotEmpty()) {
-                                val firstSuggestion = suggestions[0]
-                                val name = firstSuggestion.name
-                                val probability = firstSuggestion.probability
+                            // Crear un objeto de tipo Plant
+                            val newPlant = Plant(
+                                name = plantResponse.name ?: "Planta Nueva",
+                                waterPeriod = plantResponse.waterPeriod ?: 0,
+                                imageUri = Uri.parse(plantResponse.imageUrl ?: ""),
+                                apiSuggestedName = name,
+                                probability = probability
+                            )
 
-                                // Crear un objeto de tipo Plant con el nombre sugerido por la API
-                                val newPlant = Plant(
-                                    name = plantResponse.name, // El nombre del usuario sigue siendo el principal
-                                    waterPeriod = plantResponse.waterPeriod,
-                                    imageUri = Uri.parse(plantResponse.imageUrl),
-                                    apiSuggestedName = firstSuggestion.name, // Nombre sugerido por la API
-                                    probability = probability
-                                )
-
-                                // Agregar la nueva planta al adaptador
-                                plantAdapter.addPlant(newPlant)
-                            }
+                            // Agregar la nueva planta al adaptador
+                            plantAdapter.addPlant(newPlant)
+                        } else {
+                            Log.e("PlantRepository", "No se encontraron sugerencias en la respuesta")
                         }
+                    } else {
+                        Log.e("PlantRepository", "La API indica que no es una planta o la respuesta es nula")
                     }
                 } else {
                     Log.e("PlantRepository", "Error en la respuesta de la API: ${response.code()} - ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            override fun onFailure(call: Call<ApiPlantResponse>, t: Throwable) {
                 Log.e("PlantRepository", "Error en la llamada a la API: ${t.message}")
             }
         })
